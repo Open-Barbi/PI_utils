@@ -50,15 +50,29 @@ void loop()
   }              //Do nothing while we wait for user to press a key
   Serial.read(); //Throw away the user's button
   led++;
-  if(!led % 2){
-    sensor.takeMeasurements(); //This is a hard wait while all 18 channels are measured
+  if(!led == 0){
+    sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_100MA, AS7265x_LED_WHITE); //This is a hard wait while all 18 channels are measured
+  }
+  if(led == 1)
+  {
+    sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_50MA, AS7265x_LED_WHITE); //This is a hard wait while all 18 channels are measured
+  }
+  if(led == 2)
+  {
+    sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_25MA, AS7265x_LED_WHITE); //This is a hard wait while all 18 channels are measured
+  }
+  if(led == 3)
+  {
+    sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_WHITE); //This is a hard wait while all 18 channels are measured
   }
   else{
-    sensor.enableBulb(AS7265x_LED_WHITE);
-    sensor.takeMeasurements();
-    sensor.disableBulb(AS7265x_LED_WHITE);
+    led == -1;
   }
-  Serial.print(sensor.getCalibratedA()); //410nm
+  sensor.enableBulb(AS7265x_LED_WHITE);
+  sensor.takeMeasurements();
+  sensor.disableBulb(AS7265x_LED_WHITE);
+
+  /* Serial.print(sensor.getCalibratedA()); //410nm
   Serial.print(",");
   Serial.print(sensor.getCalibratedB()); //435nm
   Serial.print(",");
@@ -69,9 +83,9 @@ void loop()
   Serial.print(sensor.getCalibratedE()); //510nm
   Serial.print(",");
   Serial.print(sensor.getCalibratedF()); //535nm
-  Serial.print(",");
+  Serial.print(","); */
 
-/*   Serial.print(0.0); //410nm
+  Serial.print(0.0); //410nm
   Serial.print(",");
   Serial.print(0.0); //435nm
   Serial.print(",");
@@ -83,7 +97,7 @@ void loop()
   Serial.print(",");
   Serial.print(0.0); //535nm
   Serial.print(",");
- */
+
   Serial.print(sensor.getCalibratedG()); //560nm
   Serial.print(",");
   Serial.print(sensor.getCalibratedH()); //585nm

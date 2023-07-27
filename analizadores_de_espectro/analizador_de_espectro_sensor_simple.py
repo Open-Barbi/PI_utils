@@ -55,6 +55,8 @@ try:
             # Actualizar los datos del gráfico
             # Normalizar los datos dividiendo cada valor por el máximo valor en la lista
             max_valor = max(datos_uart)
+            if max_valor == 0:
+                max_valor = 1
             datos_normalizados = [dato / max_valor for dato in datos_uart]
 
             line.set_ydata(datos_normalizados)
